@@ -1,0 +1,17 @@
+<section class="page-heading">
+  <div><p class="eyebrow">Organização pessoal</p><h1>Minhas tarefas</h1><p class="subtitle">Acompanhe o que precisa ser feito hoje.</p></div>
+  <a routerLink="/nova" class="btn btn-primary">+ Nova tarefa</a>
+</section>
+<section class="toolbar" aria-label="Filtros de tarefas">
+  <label class="search-field"><span class="sr-only">Buscar tarefas</span><input [(ngModel)]="search" (input)="load()" type="search" placeholder="Buscar tarefa..." /></label>
+  <select [(ngModel)]="status" (change)="load()" aria-label="Filtrar por status"><option value="todas">Todas</option><option value="pendentes">Pendentes</option><option value="concluidas">Concluídas</option></select>
+</section>
+<div *ngIf="loading" class="task-grid" aria-label="Carregando tarefas"><div class="task-card skeleton" *ngFor="let item of [1, 2, 3]"><span></span><span></span><span></span></div></div>
+<div *ngIf="!loading && tasks.length" class="task-grid">
+  <article *ngFor="let task of tasks" class="task-card" [class.is-done]="task.completed">
+    <button class="check-button" type="button" [class.checked]="task.completed" (click)="toggleCompletion(task)" [attr.aria-label]="task.completed ? 'Marcar como pendente' : 'Marcar como concluída'">{{ task.completed ? '✓' : '' }}</button>
+    <div class="task-content"><div class="task-title-row"><h2>{{ task.title }}</h2><span class="priority priority-{{ task.priority }}">{{ task.priority }}</span></div><p *ngIf="task.description">{{ task.description }}</p><p class="task-meta" *ngIf="task.due_date">Entrega: {{ task.due_date | date:'dd/MM/yyyy' }}</p></div>
+    <div class="card-actions"><a [routerLink]="['/editar', task.id]" class="icon-action">Editar</a><button type="button" class="icon-action danger" (click)="remove(task)">Excluir</button></div>
+  </article>
+</div>
+<div *ngIf="!loading && !tasks.length" class="empty-state"><div class="empty-icon">✓</div><h2>Nenhuma tarefa por aqui</h2><p>Crie uma tarefa ou ajuste os filtros para continuar.</p><a routerLink="/nova" class="btn btn-secondary">Criar tarefa</a></div>

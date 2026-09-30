@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { UserListComponent } from './components/user-list/user-list.component';
-import { UserFormComponent } from './components/user-form/user-form.component';
+import { TaskListComponent } from './components/task-list/task-list.component';
+import { TaskFormComponent } from './components/task-form/task-form.component';
 
 export const routes: Routes = [
-  { path: '', component: UserListComponent },
-  { path: 'novo', component: UserFormComponent },
-  { path: 'editar/:id', component: UserFormComponent }
+  { path: '', component: TaskListComponent },
+  { path: 'nova', component: TaskFormComponent },
+  { path: 'editar/:id', component: TaskFormComponent }
 ];
