@@ -10,7 +10,8 @@ app.use('/api', taskRoutes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err);
-  res.status(500).json({ error: 'Erro interno no servidor' });
+  const status = err.message.includes('não encontrada') ? 404 : err.message.includes('obrigatório') || err.message.includes('inválid') ? 400 : 500;
+  res.status(status).json({ error: status === 500 ? 'Erro interno no servidor' : err.message });
 });
 
 export default app;

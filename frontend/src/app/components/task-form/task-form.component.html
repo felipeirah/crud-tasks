@@ -1,5 +1,7 @@
 <section class="page-heading form-heading"><div><a routerLink="/" class="back-link">← Voltar para tarefas</a><h1>{{ id ? 'Editar tarefa' : 'Nova tarefa' }}</h1><p class="subtitle">{{ id ? 'Atualize os detalhes da sua tarefa.' : 'Adicione algo importante à sua lista.' }}</p></div></section>
-<form class="task-form" (ngSubmit)="save()">
+<div *ngIf="loading" class="task-form form-skeleton" aria-label="Carregando tarefa"><span></span><span></span><span></span></div>
+<form *ngIf="!loading" class="task-form" (ngSubmit)="save()">
+  <div *ngIf="error" class="feedback feedback-error" role="alert">{{ error }}</div>
   <label class="form-field"><span>Título <b>*</b></span><input type="text" [(ngModel)]="task.title" name="title" maxlength="120" required placeholder="Ex.: Preparar apresentação" /></label>
   <label class="form-field"><span>Descrição</span><textarea [(ngModel)]="task.description" name="description" rows="5" placeholder="Inclua detalhes úteis para lembrar depois."></textarea></label>
   <div class="form-row"><label class="form-field"><span>Data de entrega</span><input type="date" [(ngModel)]="task.due_date" name="due_date" /></label><label class="form-field"><span>Prioridade</span><select [(ngModel)]="task.priority" name="priority"><option value="baixa">Baixa</option><option value="media">Média</option><option value="alta">Alta</option></select></label></div>

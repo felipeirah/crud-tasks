@@ -2,6 +2,7 @@
   <div><p class="eyebrow">Organização pessoal</p><h1>Minhas tarefas</h1><p class="subtitle">Acompanhe o que precisa ser feito hoje.</p></div>
   <a routerLink="/nova" class="btn btn-primary">+ Nova tarefa</a>
 </section>
+<div *ngIf="error" class="feedback feedback-error" role="alert"><span>{{ error }}</span><button type="button" (click)="load()">Tentar novamente</button></div>
 <section class="toolbar" aria-label="Filtros de tarefas">
   <label class="search-field"><span class="sr-only">Buscar tarefas</span><input [(ngModel)]="search" (input)="load()" type="search" placeholder="Buscar tarefa..." /></label>
   <select [(ngModel)]="status" (change)="load()" aria-label="Filtrar por status"><option value="todas">Todas</option><option value="pendentes">Pendentes</option><option value="concluidas">Concluídas</option></select>
@@ -14,4 +15,4 @@
     <div class="card-actions"><a [routerLink]="['/editar', task.id]" class="icon-action">Editar</a><button type="button" class="icon-action danger" (click)="remove(task)">Excluir</button></div>
   </article>
 </div>
-<div *ngIf="!loading && !tasks.length" class="empty-state"><div class="empty-icon">✓</div><h2>Nenhuma tarefa por aqui</h2><p>Crie uma tarefa ou ajuste os filtros para continuar.</p><a routerLink="/nova" class="btn btn-secondary">Criar tarefa</a></div>
+<div *ngIf="!loading && !tasks.length && !error" class="empty-state"><div class="empty-icon">✓</div><h2>Nenhuma tarefa por aqui</h2><p>Crie uma tarefa ou ajuste os filtros para continuar.</p><a routerLink="/nova" class="btn btn-secondary">Criar tarefa</a></div>
